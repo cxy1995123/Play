@@ -148,6 +148,7 @@ export default class hero extends cc.Component {
         this.game.gameOver();
         this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this)
         this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this)
+        console.log("是否重新开始");
         console.log("game over");
     }
 

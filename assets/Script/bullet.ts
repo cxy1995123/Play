@@ -45,6 +45,7 @@ export default class bullet extends cc.Component {
         let bullet: this = self.getComponent("bullet");
         let hp3 = enemy.getHp() - bullet.getAtt()
         if (hp3 <= bullet.getAtt()) {
+            enemy.changeHp(bullet.getAtt());
             this.game.addFraction(enemy);
         } else {
             if (enemy.changeHp(bullet.getAtt())) {
@@ -58,7 +59,7 @@ export default class bullet extends cc.Component {
 
     update(dt) {
 
-        this.node.y = this.node.y + this.speed*dt;
+        this.node.y = this.node.y + this.speed * dt;
 
         if (this.node.y > 500) {
             // this.game.gcBullet(this)

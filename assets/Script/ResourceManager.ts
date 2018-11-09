@@ -96,11 +96,9 @@ export default class ResourceManager extends cc.Component {
         let em: enemy = enemy.getComponent("enemy");
         em.setGame(this.game);
 
-        let hp = 100 + Math.random() * this.time;
-        em.setMaxHp(hp)
-        em.setHp(hp);
-        em.setspeed((30 + Math.random() * 25) * 10);
-        this.node.addChild(enemy)
+        let hp = 100 + 2 * this.time;
+        em.init(this.game, hp, (30 + Math.random() * 15) * 10)
+        this.node.addChild(enemy);
 
         if (Math.random() > 0.5) {
             enemy.setPosition(cc.v2(- (1 + Math.random() * 220), 480))
@@ -133,14 +131,21 @@ export default class ResourceManager extends cc.Component {
 
     /**回收敌机资源 */
     public gcEnemy(em: enemy) {
+
         this.enemyPool.put(em.node);
     }
 
 
     public gameOver() {
-        cc.director.pause();
         this.node.addChild(this.over.node);
         this.over.node.setPosition(cc.v2(-240, -240));
+        // this.node.removeFromParent();
+        // this.node.removeFromParent();
+        cc.director.pause();
+
+
+
+
     }
 
     // update (dt) {}

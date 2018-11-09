@@ -1,6 +1,7 @@
 import game from "./game";
 import { RoundUtids } from "./RoundUtilds";
 import ResourceManager from "./ResourceManager";
+import enemy from "./enemy";
 
 
 
@@ -22,11 +23,11 @@ export default class hero extends cc.Component {
 
     public moveX: number = 0;
     public moveY: number = 0;
-  
 
-    public res:ResourceManager = null;
 
-    public att: number = 30;
+    public res: ResourceManager = null;
+
+    public att: number = 50;
     public Lv: number = 1;
     public exp: number = 1;
 
@@ -39,47 +40,47 @@ export default class hero extends cc.Component {
 
                 break
             case 2:
-                if (this.exp > 200) {
+                if (this.exp > 100) {
                     this.lvUp();
                 }
                 break
             case 3:
-                if (this.exp > 400) {
+                if (this.exp > 200) {
                     this.lvUp();
                 }
                 break
             case 4:
-                if (this.exp > 800) {
+                if (this.exp > 400) {
                     this.lvUp();
                 }
                 break
             case 5:
-                if (this.exp > 1600) {
+                if (this.exp > 600) {
                     this.lvUp();
                 }
                 break
             case 6:
-                if (this.exp > 3200) {
+                if (this.exp > 800) {
                     this.lvUp();
                 }
                 break
             case 7:
-                if (this.exp > 6400) {
+                if (this.exp > 1200) {
                     this.lvUp();
                 }
                 break
             case 8:
-                if (this.exp > 12800) {
+                if (this.exp > 1600) {
                     this.lvUp();
                 }
                 break
             case 9:
-                if (this.exp > 51200) {
+                if (this.exp > 2400) {
                     this.lvUp();
                 }
                 break
             case 10:
-                if (this.exp > 102400) {
+                if (this.exp > 5000) {
                     this.lvUp();
                 }
                 break
@@ -98,9 +99,11 @@ export default class hero extends cc.Component {
 
     //升级
     public lvUp() {
-        console.log("升级了...");
-        this.att += 35
+        this.att += 15
         this.Lv += 1;
+        console.log("升级了...att:" + this.att);
+
+
     }
 
     public setResourceManager(res: ResourceManager) {
@@ -146,10 +149,16 @@ export default class hero extends cc.Component {
  * @param  {Collider} self  产生碰撞的自身的碰撞组件
  */
     public onCollisionEnter(other, self) {
-        this.res.gameOver();
-        this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this)
-        this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this)
-        console.log("game over");
+
+        let enemy: enemy = other.getComponent("enemy");
+
+        if (!enemy.is_destory) {
+            this.res.gameOver();
+            this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this)
+            this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this)
+        }
+
+
     }
 
 

@@ -1,7 +1,6 @@
 import enemy from "./enemy";
 import bullet from "./bullet";
 import hero from "./hero";
-import GameOver from "./GameOver";
 import ResourceManager from "./ResourceManager";
 
 
@@ -50,15 +49,20 @@ export default class game extends cc.Component {
     }
 
 
-   
+
 
     /**增加得分 */
     public addFraction(em: enemy) {
+        em.startAnim(() => {
+            em.boom.node.opacity = 0;
+            this.gcEnemy(em)
+        })
+
         let exp = Math.floor(em.getMaxHp() / 100);
         this.heroTs.addExp(exp);
         this.fun += exp;
         this.lb.string = "得分：" + this.fun
-        this.gcEnemy(em)
+
     }
 
     /**回收子弹资源 */

@@ -27,11 +27,36 @@ export default class enemy extends cc.Component {
 
     game: game = null;
 
+    @property(cc.Sprite)
+    boom: cc.Sprite = null;
+
+    private anim: cc.Animation = null;
+
+    public is_destory: boolean = false;
+
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad() {
+        if (this.anim != null) {
+            this.anim.stop();
+        }
+        this.is_destory = false;
+    }
 
-    // start() { }
+
+
+    public init(game,hp,speed){
+           this.setGame(game);
+           this.setHp(hp)
+           this.setMaxHp(hp);
+           this.setspeed(speed)
+           if (this.anim != null) {
+            this.anim.stop();
+        }
+        this.hpPrg.node.opacity = 255;
+        this.boom.node.opacity = 0;
+        this.is_destory = false;
+    }
 
 
 
@@ -46,6 +71,8 @@ export default class enemy extends cc.Component {
 
     }
 
+
+
     public setMaxHp(hp: number) {
         this.maxHp = hp;
     }
@@ -59,11 +86,20 @@ export default class enemy extends cc.Component {
         return this.hp;
     }
 
+    public startAnim(callbacks: any) {
+        this.is_destory = true;
+        this.boom.node.opacity = 255;
+        this.anim = this.boom.getComponent(cc.Animation);
+        this.anim.once(cc.Animation.EventType.STOP, callbacks, this)
+        this.anim.play("boom");
+    }
+
 
     public changeHp(att: number): boolean {
         if (att >= this.hp) {
             this.hpPrg.progress = 0;
             this.setHp(0);
+            this.hpPrg.node.opacity = 0;
             return true;
         } else {
             this.setHp(this.hp - att);
@@ -78,13 +114,20 @@ export default class enemy extends cc.Component {
     }
 
 
-   
+
     update(dt: number) {
+
+        if (this.is_destory) {
+            return;
+        }
+
         this.node.y = this.node.y - this.speed * dt;
         if (this.node.y < - 520) {
             // this.game.gcEnemys(this);
             this.node.removeFromParent();
         }
+
+
 
     }
 }

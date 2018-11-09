@@ -1,6 +1,7 @@
 import game from "./game";
 import { RoundUtids } from "./RoundUtilds";
- 
+import ResourceManager from "./ResourceManager";
+
 
 
 // Learn TypeScript:
@@ -21,9 +22,9 @@ export default class hero extends cc.Component {
 
     public moveX: number = 0;
     public moveY: number = 0;
-    public game: game = null;
+  
 
-    public gameOver = false;
+    public res:ResourceManager = null;
 
     public att: number = 30;
     public Lv: number = 1;
@@ -102,8 +103,8 @@ export default class hero extends cc.Component {
         this.Lv += 1;
     }
 
-    public setGame(game: game) {
-        this.game = game;
+    public setResourceManager(res: ResourceManager) {
+        this.res = res;
     }
 
     onLoad() {
@@ -145,10 +146,9 @@ export default class hero extends cc.Component {
  * @param  {Collider} self  产生碰撞的自身的碰撞组件
  */
     public onCollisionEnter(other, self) {
-        this.game.gameOver();
+        this.res.gameOver();
         this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this)
         this.node.off(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this)
-        console.log("是否重新开始");
         console.log("game over");
     }
 

@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.23748372395833334,
-      "y": 0.23748372395833334,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_quat": {
@@ -89,6 +89,9 @@
       },
       {
         "__id__": 17
+      },
+      {
+        "__id__": 18
       }
     ],
     "_prefab": null,
@@ -761,18 +764,31 @@
     "lb": {
       "__id__": 15
     },
+    "hero": {
+      "__id__": 11
+    },
+    "_id": "b6d+nzX85BUJ3rBvAeoreN"
+  },
+  {
+    "__type__": "42d4d2AOyVPHJFu1PjbmWkw",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
     "enemyPrefab": {
       "__uuid__": "dcdd3877-ad92-4880-b608-29b87bf5efc1"
     },
     "bulletPrefab": {
       "__uuid__": "591f9a91-2822-47f7-af5c-836494871856"
     },
-    "hero": {
-      "__id__": 11
-    },
     "gameOverPop": {
       "__uuid__": "02624498-caf0-4293-be52-012fd730f8ea"
     },
-    "_id": "b6d+nzX85BUJ3rBvAeoreN"
+    "heroPro": {
+      "__id__": 11
+    },
+    "_id": "8cfAMMwE9F+pkPTRRFDL56"
   }
 ]

@@ -12,7 +12,6 @@ export default class GameOver extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-
         this.replay.node.once(cc.Node.EventType.TOUCH_START, this.onTouch, this)
     }
 
@@ -23,6 +22,9 @@ export default class GameOver extends cc.Component {
     public onTouch(event: cc.Event.EventTouch) {
 
         cc.director.loadScene("Secend")
+        if (cc.director.isPaused()) {
+            cc.director.resume();
+        }
     }
 
     onDestroy() {

@@ -46,15 +46,17 @@ export default class ResourceManager extends cc.Component {
 
     private addTime() {
         this.time++;
-        console.log(this.time);
-
     }
 
     start() {
         //计时器
         this.schedule(this.addTime, 1);
         //飞机子弹
-        this.schedule(this.createEnemy, 1)
+        this.schedule( ()=> {
+            this.createEnemy();
+            this.createEnemy();
+        }, 1)
+
         this.schedule(this.createBullet, 0.3)
         this.hero.setResourceManager(this)
     }
@@ -131,7 +133,6 @@ export default class ResourceManager extends cc.Component {
 
     /**回收敌机资源 */
     public gcEnemy(em: enemy) {
-
         this.enemyPool.put(em.node);
     }
 

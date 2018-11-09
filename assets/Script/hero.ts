@@ -1,109 +1,33 @@
 import game from "./game";
-import { RoundUtids } from "./RoundUtilds";
+import { RoundUtids } from "./Utils/RoundUtilds";
 import ResourceManager from "./ResourceManager";
 import enemy from "./enemy";
-
-
-
-// Learn TypeScript:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import { LvUtils } from "./Utils/LvUtils";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class hero extends cc.Component {
 
-
     public moveX: number = 0;
     public moveY: number = 0;
-
-
     public res: ResourceManager = null;
-
     public att: number = 50;
     public Lv: number = 1;
     public exp: number = 1;
-
-    public isLvUp() {
-        switch (this.Lv) {
-            case 1:
-                if (this.exp > 30) {
-                    this.lvUp();
-                }
-
-                break
-            case 2:
-                if (this.exp > 100) {
-                    this.lvUp();
-                }
-                break
-            case 3:
-                if (this.exp > 200) {
-                    this.lvUp();
-                }
-                break
-            case 4:
-                if (this.exp > 400) {
-                    this.lvUp();
-                }
-                break
-            case 5:
-                if (this.exp > 600) {
-                    this.lvUp();
-                }
-                break
-            case 6:
-                if (this.exp > 800) {
-                    this.lvUp();
-                }
-                break
-            case 7:
-                if (this.exp > 1200) {
-                    this.lvUp();
-                }
-                break
-            case 8:
-                if (this.exp > 1600) {
-                    this.lvUp();
-                }
-                break
-            case 9:
-                if (this.exp > 2400) {
-                    this.lvUp();
-                }
-                break
-            case 10:
-                if (this.exp > 5000) {
-                    this.lvUp();
-                }
-                break
-
-
-
-
-
-        }
-    }
-
+ 
     public addExp(exp: number) {
         this.exp += exp;
-        this.isLvUp();
+        if (LvUtils.isLvUp(this.Lv, this.exp)) {
+            this.lvUp();
+        }
     }
 
     //升级
     public lvUp() {
-        this.att += 15
         this.Lv += 1;
-        console.log("升级了...att:" + this.att);
-
-
+        this.att = LvUtils.addAtt(this.Lv)
+        console.log("升级了...att:" + this.att + ",lv:" + this.Lv);
     }
 
     public setResourceManager(res: ResourceManager) {

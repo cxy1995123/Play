@@ -45,12 +45,12 @@ export default class enemy extends cc.Component {
 
 
 
-    public init(game,hp,speed){
-           this.setGame(game);
-           this.setHp(hp)
-           this.setMaxHp(hp);
-           this.setspeed(speed)
-           if (this.anim != null) {
+    public init(game, hp, speed) {
+        this.setGame(game);
+        this.setHp(hp)
+        this.setMaxHp(hp);
+        this.setspeed(speed)
+        if (this.anim != null) {
             this.anim.stop();
         }
         this.hpPrg.node.opacity = 255;
@@ -87,8 +87,8 @@ export default class enemy extends cc.Component {
     }
 
     public startAnim(callbacks: any) {
-        this.is_destory = true;
         this.boom.node.opacity = 255;
+        this.is_destory = true;
         this.anim = this.boom.getComponent(cc.Animation);
         this.anim.once(cc.Animation.EventType.STOP, callbacks, this)
         this.anim.play("boom");
@@ -100,6 +100,7 @@ export default class enemy extends cc.Component {
             this.hpPrg.progress = 0;
             this.setHp(0);
             this.hpPrg.node.opacity = 0;
+            this.is_destory = true;
             return true;
         } else {
             this.setHp(this.hp - att);

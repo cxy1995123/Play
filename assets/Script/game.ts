@@ -53,6 +53,9 @@ export default class game extends cc.Component {
 
     /**增加得分 */
     public addFraction(em: enemy) {
+        if (em.is_destory) {
+            return;
+        }
         em.startAnim(() => {
             em.boom.node.opacity = 0;
             this.gcEnemy(em)
@@ -62,6 +65,7 @@ export default class game extends cc.Component {
         this.heroTs.addExp(exp);
         this.fun += exp;
         this.lb.string = "得分：" + this.fun
+        console.log(this.lb.string);
 
     }
 

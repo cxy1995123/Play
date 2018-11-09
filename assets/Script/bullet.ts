@@ -39,8 +39,9 @@ export default class bullet extends cc.Component {
     * @param  {Collider} other 产生碰撞的另一个碰撞组件
      * @param  {Collider} self  产生碰撞的自身的碰撞组件
      */
-    public onCollisionEnter(other, self) {
+    public onCollisionEnter(other: cc.Node, self) {
 
+      
         let enemy: enemy = other.getComponent("enemy");
         let bullet: this = self.getComponent("bullet");
         let hp3 = enemy.getHp() - bullet.getAtt()
@@ -51,9 +52,13 @@ export default class bullet extends cc.Component {
             if (enemy.changeHp(bullet.getAtt())) {
                 this.game.addFraction(enemy);
             }
+        }
 
+        if (!enemy.is_destory) {
             self.node.removeFromParent();
         }
+
+
     }
 
 
